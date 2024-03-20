@@ -11,21 +11,9 @@ async function main() {
 
   console.log("Deploying contracts with the account:", deployer.address);
 
-  /* const balance = await deployer.provider.getBalance();
-
-  console.log("balance: ", balance);
-  const weiAmount = balance.toString();
-
-  console.log(
-    "Account balance:",
-    await hre.ethers.utils.formatEther(weiAmount)
-  ); */
-
-  // make sure to replace the "GoofyGoober" reference with your own ERC-20 name!
-  const Token = await hre.ethers.getContractFactory("GauTestToken");
+  const Token = await hre.ethers.getContractFactory("OrbitalTestToken");
   const token = await Token.deploy();
 
-  console.log("token: ", token);
   console.log("Token address:", token.target);
 }
 
@@ -35,30 +23,3 @@ main()
     console.error(error);
     process.exit(1);
   });
-
-/* async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
-
-  const lockedAmount = hre.ethers.parseEther("0.001");
-
-  const lock = await hre.ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
-
-  await lock.waitForDeployment();
-
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
-}
-
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
- */
